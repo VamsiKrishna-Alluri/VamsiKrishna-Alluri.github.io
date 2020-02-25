@@ -219,7 +219,7 @@ function showCalendar(month, year)
             else 
             {
                 let cell = document.createElement("td");
-                cell.style.user-select = "none";
+                //cell.style.user-select = "none";
                 let cellText = document.createTextNode(date);
                 //$(cell).attr("id",incrementid++);
                 //incrementid++;
