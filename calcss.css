@@ -492,4 +492,8 @@ button {
     box-sizing: inherit;
     color: white;
     padding: 5px;
+    height: 200px;
+    overflow-y: auto;
+    overflow-x:hidden;
+    resize: both;
 }

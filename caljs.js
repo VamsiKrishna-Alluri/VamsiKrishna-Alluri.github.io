@@ -6,12 +6,16 @@ let today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-let flag = 0;
+let departing_returning_1_0flag = 0;
 let departing;
 let returning;
 let year = document.getElementById("idyear");
 let month = document.getElementById("idmonth");
 let yearstart;
+
+//change this to 1 for debugging this code
+debug = 0;
+
 //user details
 	let username;
 	let email;
@@ -26,7 +30,7 @@ let yearstart;
 //popup text
 	let welcome;
 	let popuptxt;
-	let popupflag;
+	let Popupflag;
 
 showCalendar(currentMonth, currentYear);
 
@@ -124,8 +128,9 @@ function previous()
 }
 function onclicking()
 {
-	alert("onclicking");
-	flag = 1;
+	debug===1?console.log("onclicking"):{};
+
+	departing_returning_1_0flag = 1;
 	var temp = document.getElementsByTagName('input');
     username = document.getElementById("name").value;
     email = document.getElementById('email').value;
@@ -147,12 +152,13 @@ function onclicking()
     destination = document.getElementById("travel").value;
     no_of_adults = document.getElementById("adults").value;
     no_of_children = document.getElementById("children").value;
-    
+    gender = $("input[name=check]:checked").val();
+
+
     welcome = "Welcome "+username;
-    popuptxt=returningdate+"<br>"+destination;
+    popuptxt=returningdate+"<br>"+destination+"<br>"+gender+"<br>"+"<br>"+"<br>"+"<br>"+"<br>"+"Hello"+"<br>"+"Maybe Scrollable";
     document.getElementById("popuptext").innerHTML=popuptxt;
     document.getElementById("Welcome").innerHTML=welcome;
-    gender = $("input[name=check]:checked").val();
     document.getElementById('sendemail').href = "mailto:"+email+"?Subject=Event Planner&Body=Planned a vacation from"+departingdate+" - "+departingmonth+" - "+departingyear+" to "+returningday+" - "+returningmonth+" - "+returningyear+". Visiting"+destination;
     //console.log(modesoftransport,username,gender,departingdate,returningdate,destination,no_of_children,no_of_adults);
     currentMonth = departingmonth;
@@ -185,7 +191,7 @@ function showCalendar(month, year)
     // filing data about month and in the page via DOM.
     idyear.innerHTML = year;
     idmonth.innerHTML= months[month];
-    console.log("in showCalendar"+month);
+    debug===1?console.log("in showCalendar"+month):console.log();
     // creating all cells
     let date = 1;
     //var incrementid = 1;
@@ -213,6 +219,7 @@ function showCalendar(month, year)
             else 
             {
                 let cell = document.createElement("td");
+                cell.style.user-select = "none";
                 let cellText = document.createTextNode(date);
                 //$(cell).attr("id",incrementid++);
                 //incrementid++;
@@ -220,7 +227,7 @@ function showCalendar(month, year)
                 row.appendChild(cell);
                 date++;
 
-                if(flag==1) {
+                if(departing_returning_1_0flag==1) {
                     if (date==departingday && month==departingmonth && year==departingyear){
                     	cell.setAttribute('style','background-color: #0066ff;');
                     	setcell(cell);
@@ -238,6 +245,7 @@ function showCalendar(month, year)
 function setcell(cell) {
 	cell.addEventListener('mouseover',function(){
 		Popupflag = 1;
+		debug===1?alert(cell.innerHTML):{};
                     	//console.log("mouseover");
                     	let cellbound = cell.getBoundingClientRect();
                     	let popdiv = document.getElementById('popup');
@@ -288,15 +296,19 @@ function monthss()
             
             tbl.innerHTML="";
             var x = this.innerHTML;
-            for(let z=0;z<12;z++)
-            {
-                if(months[z]==x)
-                {
-                    document.getElementById('idmonth').innerHTML=z+1;
+            var monthindex = months.indexOf(x);
+            //alert(monthindex);
+            // for(let z=0;z<12;z++)
+            // {
+            //     if(months[z]==x)
+            //     {
+            //         document.getElementById('idmonth').innerHTML=z+1;
+            //         idyear=document.getElementById("idyear");
+            //         showCalendar(z,idyear.innerHTML);
+            //     }
+            // }
                     idyear=document.getElementById("idyear");
-                    showCalendar(z,idyear.innerHTML);
-                }
-            }
+                    showCalendar(monthindex,idyear.innerHTML);
         }
     }
 }
