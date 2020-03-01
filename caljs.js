@@ -3,6 +3,7 @@
 document.getElementById("yeartable").style.display='none'
 document.getElementById("monthtable").style.display='none'
 let today = new Date();
+let currentDay = today.getDate();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -226,7 +227,9 @@ function showCalendar(month, year)
                 cell.appendChild(cellText);
                 row.appendChild(cell);
                 date++;
-
+		if (currentDay==date && month=currentMonth && year==currentYear){
+			cell.setAttribute('style','background-color: #FFFFFF;');
+		    }
                 if(departing_returning_1_0flag==1) {
                     if (date==departingday && month==departingmonth && year==departingyear){
                     	cell.setAttribute('style','background-color: #0066ff;');
